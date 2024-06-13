@@ -1,0 +1,18 @@
+class Solution {
+    public int calculatePadovan(int n) {
+        final int MOD = 1000000007;
+        if (n == 0 || n == 1 || n == 2) {
+            return 1;
+        }
+        
+        int prevPrev = 1, prev = 1, current = 1;
+        
+        for (int i = 3; i <= n; i++) {
+            current = (prev + prevPrev) % MOD;
+            prevPrev = prev;
+            prev = current;
+        }
+        
+        return current;
+    }
+}
