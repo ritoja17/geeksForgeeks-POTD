@@ -1,0 +1,54 @@
+class Solution {
+    public static ArrayList<Integer> getPrimes(int n) {
+        boolean prime_array[] = sieve_of_eratosthenes(n);
+        ArrayList<Integer> prime = create_list(prime_array);
+        
+        int l=0, r=prime.size()-1;
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        
+        while(l<=r){
+            int a=prime.get(l), b=prime.get(r);
+            int sum = a + b;
+            
+            if(sum==n){
+                ans.add(a);
+                ans.add(b);
+                return ans;
+            }
+            else if(sum<n)  l++;
+            else    r--;
+        }
+        
+        ans.add(-1);
+        ans.add(-1);
+        return ans;
+    }
+    
+    static ArrayList<Integer> create_list(boolean prime[]){
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i=0;i<prime.length;i++){
+            if(prime[i])    list.add(i);
+        }
+        return list;
+    }
+    
+    static boolean[] sieve_of_eratosthenes(int n){
+        boolean prime[] = new boolean[n+1];
+        Arrays.fill(prime,true);
+        
+        prime[0]=false;
+        prime[1]=false;
+        
+        for(int i=2;i*i<=n;i++){
+            if(prime[i]){
+                for(int j=i*i;j<=n;j+=i){
+                    prime[j]=false;
+                }
+            }
+        }
+        
+        
+        return prime;
+    }
+}
