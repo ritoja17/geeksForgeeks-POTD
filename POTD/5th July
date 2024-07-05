@@ -1,0 +1,17 @@
+class Solution {
+    // Function to find the vertical width of a Binary Tree.
+    public int verticalWidth(Node root) {
+       if (root == null) 
+            return 0;
+        Set<Integer> Distance = new HashSet<>();
+        helper(root, 0, Distance);
+        return Distance.size();
+    }
+    private void helper(Node node, int step, Set<Integer> set)
+    {
+        if (node == null) return;
+        set.add(step);
+        helper(node.left, step - 1, set);
+        helper(node.right, step + 1, set);
+    }
+}
